@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
-import { UserEntity } from 'libs/entities/src';
+import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService {

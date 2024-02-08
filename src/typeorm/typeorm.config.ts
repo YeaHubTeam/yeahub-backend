@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import * as process from 'process';
-import { ENTITIES } from 'libs/entities/src';
+import { ENTITIES } from 'src/index.entities';
 
 const env = process.env.NODE_ENV || 'development';
 config({ path: join(process.cwd(), `.env.${env}`) });
