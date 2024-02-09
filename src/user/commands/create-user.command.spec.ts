@@ -39,6 +39,7 @@ describe('CreateUserCommand', () => {
       city: 'City',
       birthday: new Date(),
       address: '123 Main St',
+      passwordHash: '123456',
       avatarUrl: 'http://example.com/avatar.jpg',
     };
 
