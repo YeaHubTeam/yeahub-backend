@@ -23,6 +23,10 @@ export class UserEntity {
   @Length(1, 255)
   lastName: string;
 
+  @Column({ type: 'varchar', length: 255, name: 'password_hash' })
+  @Length(1, 255)
+  passwordHash: string;
+
   @Column({ type: 'varchar', length: 255, unique: true })
   @Length(1, 255)
   phone: string;
