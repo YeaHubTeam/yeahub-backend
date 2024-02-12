@@ -18,6 +18,7 @@ export const LogMetadata = (controllerName: string, serviceName: string) =>
   SetMetadata('logInfo', { controllerName, serviceName });
 
 @ApiTags('users')
+@LogMetadata('UsersController', 'UserService')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -29,7 +30,7 @@ export class UserController {
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserEntity> {
-    const user = await this.userService.findUserById(id);
+    const user = await this.userService.findOne(id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -37,7 +38,6 @@ export class UserController {
   }
 
   @Post()
-  @LogMetadata('UsersController', 'UserService')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({
