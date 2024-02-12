@@ -11,6 +11,10 @@ export class UserService {
     private getUsersQuery: GetUsersQuery,
   ) {}
 
+  findUserById(id: string): Promise<UserEntity> {
+    return this.getUsersQuery.findOne(id);
+  }
+
   findAll(): Promise<UserEntity[]> {
     return this.getUsersQuery.execute();
   }

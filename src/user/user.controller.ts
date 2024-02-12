@@ -4,12 +4,18 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
+  Param,
   Post,
+  SetMetadata,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
+export const LogMetadata = (controllerName: string, serviceName: string) =>
+  SetMetadata('logInfo', { controllerName, serviceName });
 
 @ApiTags('users')
 @Controller('users')
@@ -21,7 +27,17 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<UserEntity> {
+    const user = await this.userService.findUserById(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
   @Post()
+  @LogMetadata('UsersController', 'UserService')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({

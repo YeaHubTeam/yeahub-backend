@@ -13,4 +13,8 @@ export class GetUsersQuery {
   async execute(): Promise<UserEntity[]> {
     return await this.usersRepository.find();
   }
+
+  async findOne(id: string): Promise<UserEntity> {
+    return await this.usersRepository.findOneBy({ id });
+  }
 }
