@@ -3,18 +3,18 @@ import { CreateUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
-import { FindUserById } from './queries/find-user-by-id.query';
+import { FindUserByIdQuery } from './queries/find-user-by-id.query';
 
 @Injectable()
 export class UserService {
   constructor(
     private createUserCommand: CreateUserCommand,
     private getUsersQuery: GetUsersQuery,
-    private findUserById: FindUserById,
+    private findUserByIdQuery: FindUserByIdQuery,
   ) {}
 
-  findOne(id: string): Promise<UserEntity> {
-    return this.findUserById.execute(id);
+  findUserById(id: string): Promise<UserEntity> {
+    return this.findUserByIdQuery.execute(id);
   }
 
   findAll(): Promise<UserEntity[]> {

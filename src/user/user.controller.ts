@@ -29,8 +29,8 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<UserEntity> {
-    const user = await this.userService.findOne(id);
+  async findUserById(@Param('id') id: string): Promise<UserEntity> {
+    const user = await this.userService.findUserById(id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
