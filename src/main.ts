@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { appDataSource } from './typeorm/typeorm.config';
 
 async function run() {
@@ -24,7 +24,14 @@ async function run() {
 
   setupGracefulShutdown(app);
 
-  await app.listen(port);
+  app
+    .listen(port)
+    .then(() => {
+      Logger.log(`Application started on port ${port}`);
+    })
+    .catch((e) => {
+      Logger.error(`Failed to start application. Error: ${e}`);
+    });
 }
 
 function setupGracefulShutdown(app: INestApplication) {
@@ -32,26 +39,26 @@ function setupGracefulShutdown(app: INestApplication) {
   shutdownSignals.forEach((signal) => {
     process.on(signal, async () => {
       try {
-        console.log(`Received ${signal}. Graceful shutdown initiated.`);
+        Logger.log(`Received ${signal}. Graceful shutdown initiated.`);
         if (appDataSource.isInitialized) {
-          console.log('Disconnecting from db');
+          Logger.log('Disconnecting from db');
           await appDataSource.destroy();
         }
         await app.close();
-        console.log('NestJS application successfully shut down.');
+        Logger.log('NestJS application successfully shut down.');
         process.exit(0);
       } catch (e) {
-        console.error('Failed to gracefully shutdown. Error: ', e);
+        Logger.error('Failed to gracefully shutdown. Error: ', e);
       }
     });
   });
 
   process.on('uncaughtException', (err) => {
-    console.error(`Uncaught exception - ${err.stack || err}`);
+    Logger.error(`Uncaught exception - ${err.stack || err}`);
   });
 
   process.on('unhandledRejection', (reason) => {
-    console.error(`Unhandled Rejection reason: ${reason}`);
+    Logger.error(`Unhandled Rejection reason: ${reason}`);
   });
 }
 
