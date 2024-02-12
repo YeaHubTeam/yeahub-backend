@@ -1,4 +1,4 @@
-import { FindUserById } from './get-user.query';
+import { FindUserById } from './find-user-by-id.query';
 import { GetUsersQuery } from './get-users.query';
 
 export * from './get-users.query';

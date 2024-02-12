@@ -3,7 +3,7 @@ import { CreateUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
-import { FindUserById } from './queries/get-user.query';
+import { FindUserById } from './queries/find-user-by-id.query';
 
 @Injectable()
 export class UserService {
