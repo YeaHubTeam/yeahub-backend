@@ -1,0 +1,17 @@
+#syntax=docker/dockerfile:1
+
+ARG PORT
+
+FROM node:20-bullseye
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE $PORT
+
+CMD ["npm", "run", "start:dev"]
