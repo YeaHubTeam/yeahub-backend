@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeormModule } from './typeorm/typeorm.module';
-import { TypeORMErrorFilter } from './filters/custom-error-filter';
-import { APP_FILTER } from '@nestjs/core';
+import { FilterModule } from './filter/filter.module';
 
 @Module({
-  imports: [TypeormModule, UserModule],
+  imports: [TypeormModule, UserModule, FilterModule],
   controllers: [],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: TypeORMErrorFilter,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}

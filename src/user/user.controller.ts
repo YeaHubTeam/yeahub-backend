@@ -7,28 +7,26 @@ import {
   NotFoundException,
   Param,
   Post,
-  SetMetadata,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
-export const LogMetadata = (controllerName: string, serviceName: string) =>
-  SetMetadata('logInfo', { controllerName, serviceName });
+import { LogMetadata } from '../filter/decorators/log-metadata.decorator';
 
 @ApiTags('users')
-@LogMetadata('UsersController', 'UserService')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @LogMetadata('UsersController', 'UserService')
   async findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @LogMetadata('UsersController', 'UserService')
   async findUserById(@Param('id') id: string): Promise<UserEntity> {
     const user = await this.userService.findUserById(id);
     if (!user) {
@@ -66,6 +64,7 @@ export class UserController {
     status: HttpStatus.CONFLICT,
     description: 'Email already exists',
   })
+  @LogMetadata('UsersController', 'UserService')
   create(@Body() userDto: CreateUserDto) {
     return this.userService.create(userDto);
   }
