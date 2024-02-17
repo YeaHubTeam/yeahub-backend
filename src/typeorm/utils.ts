@@ -2,7 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import * as process from 'process';
 
-const env = process.env.NODE_ENV || 'devLocal';
+const env = process.env.NODE_ENV || 'development';
+const isDocker = process.env.DEPLOY_TYPE === 'docker';
 
 export const useConfigService = () => {
   config();
@@ -13,7 +14,7 @@ export const useConfigService = () => {
   };
 
   const getPGUrl = () => {
-    return env === 'devLocal'
+    return env === 'development' && !isDocker
       ? getPGUrlLocal()
       : configService.get('DATABASE_URL');
   };
