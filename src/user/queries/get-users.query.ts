@@ -11,6 +11,8 @@ export class GetUsersQuery {
   ) {}
 
   async execute(): Promise<UserEntity[]> {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({
+      relations: ['profile'],
+    });
   }
 }

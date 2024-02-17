@@ -5,8 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { IsEmail, IsUUID, Length, IsDate, IsUrl } from 'class-validator';
+import { ProfileEntity } from './profile.entity';
 
 @Entity('users')
 @Unique(['email', 'phone'])
@@ -54,6 +57,10 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 255, nullable: false })
   @IsUrl()
   avatarUrl: string | null;
+
+  @OneToOne(() => ProfileEntity)
+  @JoinColumn()
+  profile: ProfileEntity;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
