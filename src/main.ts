@@ -19,7 +19,7 @@ async function run() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  const configService = app.get(ConfigService)
+  const configService = app.get(ConfigService);
   const port = configService.get('SERVICE_PORT');
 
   setupGracefulShutdown(app);

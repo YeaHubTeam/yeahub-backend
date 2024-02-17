@@ -4,10 +4,10 @@ import { ENTITIES } from 'src/index.entities';
 import { useConfigService } from '@/typeorm/utils';
 
 const env = process.env.NODE_ENV || 'development';
-const { getPGUrl } = useConfigService()
+const { getPGUrl } = useConfigService();
 
 const options = (): DataSourceOptions => {
-  const url = getPGUrl()
+  const url = getPGUrl();
   if (!url) {
     throw new Error('Database URL is empty');
   }
