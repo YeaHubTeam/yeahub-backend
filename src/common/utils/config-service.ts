@@ -5,10 +5,10 @@ import * as process from 'process';
 const env = process.env.NODE_ENV || 'development';
 const isDocker = process.env.DEPLOY_TYPE === 'docker';
 
-export const useConfigService = () => {
-  config();
-  const configService = new ConfigService();
+config();
+export const configService = new ConfigService();
 
+export const useConfigService = () => {
   const getPGUrlLocal = () => {
     return `postgresql://${configService.get('POSTGRES_USER')}:${configService.get('POSTGRES_PASSWORD')}@localhost:5432/${configService.get('POSTGRES_DB')}`;
   };

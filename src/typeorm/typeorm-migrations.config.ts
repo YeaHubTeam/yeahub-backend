@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { join } from 'path';
 import * as process from 'process';
-import { useConfigService } from '@/typeorm/utils';
+import { useConfigService } from '@/common/utils';
 
 const env = process.env.NODE_ENV || 'development';
 const { getPGUrl } = useConfigService();
