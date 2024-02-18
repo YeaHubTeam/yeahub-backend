@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -39,7 +43,13 @@ export class CreateUserCommand {
       })
       .catch(async (error) => {
         await queryRunner.rollbackTransaction();
-        throw error;
+        if (error.code === '23505') {
+          throw new ConflictException('User with this data already exists.');
+        } else {
+          throw new BadRequestException(
+            'Something went wrong. Please try again later.',
+          );
+        }
       })
       .finally(async () => {
         await queryRunner.release();
