@@ -1,11 +1,9 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { join } from 'path';
 import * as process from 'process';
-import { useConfigService } from '@/common/utils';
+import { getPGUrl } from '@/common/utils';
 
 const env = process.env.NODE_ENV || 'development';
-const { getPGUrl } = useConfigService();
-
 const options = (): DataSourceOptions => {
   const url = getPGUrl();
   if (!url) {
