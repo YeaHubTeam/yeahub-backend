@@ -5,8 +5,8 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
 import { IsUUID } from 'class-validator';
+import { UserEntity } from '../../user/user.entity';
 
 @Entity()
 export class ProfileEntity {

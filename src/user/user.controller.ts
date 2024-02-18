@@ -4,12 +4,14 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ProfileEntity } from '../profile/entities/profile.entity';
 
 @ApiTags('users')
 @Controller('users')
@@ -19,6 +21,13 @@ export class UserController {
   @Get()
   async findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
+  }
+
+  @Get(':userId/profile')
+  async getUserProfile(
+    @Param('userId') userId: string,
+  ): Promise<ProfileEntity> {
+    return this.userService.findProfileByUserId(userId);
   }
 
   @Post()

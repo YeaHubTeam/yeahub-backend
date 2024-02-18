@@ -1,7 +1,7 @@
-import { ProfileEntity } from './user/profile.entity';
+import { ProfileEntity } from './profile/entities/profile.entity';
 import { UserEntity } from './user/user.entity';
 
 export * from './user/user.entity';
-export * from './user/profile.entity';
+export * from './profile/entities/profile.entity';
 
 export const ENTITIES = [UserEntity, ProfileEntity];
