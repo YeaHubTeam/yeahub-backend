@@ -10,6 +10,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { genSalt, hash } from 'bcrypt';
+import { SALT_ROUNDS } from '../auth/constants';
 
 @ApiTags('users')
 @Controller('users')
@@ -50,7 +52,15 @@ export class UserController {
     status: HttpStatus.CONFLICT,
     description: 'Email already exists',
   })
-  create(@Body() userDto: CreateUserDto) {
-    return this.userService.create(userDto);
+  async create(@Body() userDto: CreateUserDto) {
+    const salt = await genSalt(SALT_ROUNDS);
+    const passwordHashed = await hash(userDto.passwordHash, salt);
+    const userWithHashedPassword = { ...userDto, passwordHash: passwordHashed };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { passwordHash, ...userResult } = await this.userService.create(
+      userWithHashedPassword,
+    );
+
+    return userResult;
   }
 }

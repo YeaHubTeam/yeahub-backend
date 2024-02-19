@@ -21,16 +21,20 @@ export class UserService {
 
     return {
       ...user,
-      firstName: 'John',
-      lastName: 'Doe',
-      passwordHash: 'hashed_password_example',
-      phone: '+1234567890',
-      email: 'john.doe@example.com',
+      id: '9d3f871b-01b0-411b-8792-be7e00cf792a',
+      firstName: 'Jora',
+      lastName: 'Finesse',
+      passwordHash:
+        '$2b$10$EzDqRavhGYi.ueeSGgr/OurdNxrWS4YAvPz0IV2YDpgIOfVIsOmHe',
+      phone: '+1234567999',
       country: 'USA',
       city: 'New York',
-      birthday: new Date('1990-01-01'),
+      email: 'jora.finesse@example.com',
+      birthday: new Date('1990-01-01T00:00:00.000Z'),
       address: '123 Main St',
       avatarUrl: 'http://example.com/avatar.jpg',
+      createdAt: new Date('2024-02-19T17:28:33.351Z'),
+      updatedAt: new Date('2024-02-19T17:28:33.351Z'),
     };
   }
 
