@@ -3,20 +3,27 @@ import { CreateUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
+import { FindUserByIdQuery } from './queries/find-user-by-id.query';
+import { Nullable } from '@/common/utility-types';
 
 @Injectable()
 export class UserService {
   constructor(
     private createUserCommand: CreateUserCommand,
     private getUsersQuery: GetUsersQuery,
+    private findUserByIdQuery: FindUserByIdQuery,
   ) {}
+
+  findUserById(id: string): Promise<Nullable<UserEntity>> {
+    return this.findUserByIdQuery.execute(id);
+  }
 
   findAll(): Promise<UserEntity[]> {
     return this.getUsersQuery.execute();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async findOne(username: string): Promise<UserEntity> {
+  async findUserByEmail(username: string): Promise<UserEntity> {
     const user = new UserEntity();
 
     return {
