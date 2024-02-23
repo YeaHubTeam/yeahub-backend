@@ -10,9 +10,20 @@ export class GetAllProfilesQuery {
     private profilesRepository: Repository<ProfileEntity>,
   ) {}
 
-  async execute(): Promise<ProfileEntity[]> {
-    return await this.profilesRepository.find({
-      relations: ['user'],
-    });
+  async execute() {
+    const profiles = await this.profilesRepository.find({ relations: ['user'] });
+    
+    return profiles.map(profile => ({
+      id: profile.id,
+      userId: profile.userId,
+      user: {
+        id: profile.user.id,
+        firstName: profile.user.firstName,
+        lastName: profile.user.lastName,
+        avatarUrl: profile.user.avatarUrl,
+        createdAt: profile.user.createdAt,
+        updatedAt: profile.user.updatedAt
+      },
+    }));
   }
 }

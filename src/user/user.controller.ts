@@ -24,6 +24,22 @@ export class UserController {
   }
 
   @Get(':userId/profile')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Find profile by userId'})
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User profile successfully found',
+    schema: {
+      example: {
+        id: 'adc3e5ae-a73f-427c-976d-a37dba30ccfd',
+        userId: '700a28f9-9b2e-4e99-a2c9-fbe46d7854f1'
+      }
+    }
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'User not found'
+  })
   async getUserProfile(
     @Param('userId') userId: string,
   ): Promise<ProfileEntity> {
