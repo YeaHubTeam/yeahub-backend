@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeormModule } from './typeorm/typeorm.module';
-import { ConfigModule } from '@nestjs/config';
+import { SkillModule } from './skill/skill.module';
 
 @Module({
-  imports: [TypeormModule, UserModule, ConfigModule.forRoot()],
+  imports: [TypeormModule, UserModule, SkillModule],
   controllers: [],
   providers: [],
 })
