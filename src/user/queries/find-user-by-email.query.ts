@@ -5,13 +5,13 @@ import { UserEntity } from '../user.entity';
 import { Nullable } from '@/common/utility-types';
 
 @Injectable()
-export class FindUserByIdQuery {
+export class FindUserByEmailQuery {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async execute(id: UserEntity['id']): Promise<Nullable<UserEntity>> {
-    return await this.usersRepository.findOneBy({ id });
+  async execute(email: UserEntity['email']): Promise<Nullable<UserEntity>> {
+    return await this.usersRepository.findOneBy({ email });
   }
 }
