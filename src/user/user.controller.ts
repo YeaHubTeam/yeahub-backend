@@ -11,18 +11,21 @@ import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { genSalt, hash } from 'bcrypt';
-import { SALT_ROUNDS } from '../auth/constants';
+import { SALT_ROUNDS } from '@/auth/constants';
+import { Public } from '@/auth/decorators/public.decorator';
 
 @ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @Get()
   async findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
   }
 
+  @Public()
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new user' })
