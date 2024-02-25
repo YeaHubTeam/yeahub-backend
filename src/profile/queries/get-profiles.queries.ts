@@ -11,9 +11,11 @@ export class GetAllProfilesQuery {
   ) {}
 
   async execute() {
-    const profiles = await this.profilesRepository.find({ relations: ['user'] });
-    
-    return profiles.map(profile => ({
+    const profiles = await this.profilesRepository.find({
+      relations: ['user'],
+    });
+
+    return profiles.map((profile) => ({
       id: profile.id,
       userId: profile.userId,
       user: {
@@ -22,7 +24,7 @@ export class GetAllProfilesQuery {
         lastName: profile.user.lastName,
         avatarUrl: profile.user.avatarUrl,
         createdAt: profile.user.createdAt,
-        updatedAt: profile.user.updatedAt
+        updatedAt: profile.user.updatedAt,
       },
     }));
   }

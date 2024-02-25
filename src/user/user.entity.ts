@@ -58,7 +58,9 @@ export class UserEntity {
   @IsUrl()
   avatarUrl: string | null;
 
-  @OneToOne(() => ProfileEntity)
+  @OneToOne(() => ProfileEntity,{
+    onDelete: 'CASCADE'
+  })
   @JoinColumn()
   profile: ProfileEntity;
 

@@ -24,11 +24,11 @@ export class ProfileController {
             lastName: 'test',
             avatarUrl: 'http://example.com/avatar.jpg',
             createdAt: '2024-02-18T09:28:38.752Z',
-            updatedAt: '2024-02-18T09:28:38.752Z'
-          }
-        }
-      ]
-    }
+            updatedAt: '2024-02-18T09:28:38.752Z',
+          },
+        },
+      ],
+    },
   })
   findAll() {
     return this.profileService.findAll();

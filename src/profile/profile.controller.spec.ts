@@ -6,18 +6,18 @@ type ProfileEntity = {
   userId: string;
   id: string;
   user: {
-    id: string,
-    firstName: string,
-    lastName: string,
-    avatarUrl: string,
-    createdAt: Date,
-    updatedAt: Date
-  }
-}
+    id: string;
+    firstName: string;
+    lastName: string;
+    avatarUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};
 
 describe('ProfileController', () => {
   let profileController: ProfileController;
-  let profileService: ProfileService
+  let profileService: ProfileService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -32,7 +32,7 @@ describe('ProfileController', () => {
       ],
     }).compile();
 
-    profileService = module.get<ProfileService>(ProfileService)
+    profileService = module.get<ProfileService>(ProfileService);
     profileController = module.get<ProfileController>(ProfileController);
   });
 
@@ -42,21 +42,21 @@ describe('ProfileController', () => {
         {
           id: '1',
           userId: 'user1',
-          user: { 
-            id: 'userId1', 
-            firstName: 'John', 
-            lastName: 'Doe',    
+          user: {
+            id: 'userId1',
+            firstName: 'John',
+            lastName: 'Doe',
             avatarUrl: 'http://example.com/avatar.jpg',
             createdAt: new Date(),
-            updatedAt: new Date()
-          }
+            updatedAt: new Date(),
+          },
         },
       ];
-  
+
       jest.spyOn(profileService, 'findAll').mockResolvedValue(expectedProfiles);
-  
+
       const result = await profileController.findAll();
-  
+
       expect(result).toEqual(expectedProfiles);
       expect(profileService.findAll).toHaveBeenCalled();
     });

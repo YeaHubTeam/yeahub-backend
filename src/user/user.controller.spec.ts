@@ -20,7 +20,7 @@ describe('UserController', () => {
           provide: UserService,
           useValue: {
             create: jest.fn((dto) => dto),
-            findProfileByUserId: jest.fn()
+            findProfileByUserId: jest.fn(),
           },
         },
       ],
@@ -28,7 +28,6 @@ describe('UserController', () => {
 
     userController = module.get<UserController>(UserController);
     userService = module.get<UserService>(UserService);
-    
   });
 
   it('должен создать пользователя', async () => {
@@ -56,18 +55,18 @@ describe('UserController', () => {
         userId: userId,
         id: 'adc3e5ae-a73f-427c-976d-a37dba30ccfd',
       };
-  
+
       const userServiceMock = {
         findProfileByUserId: jest.fn().mockResolvedValue(expectedProfile),
       };
-  
+
       jest.spyOn(userServiceMock, 'findProfileByUserId');
-  
+
       const userController = new UserController(userServiceMock as any);
       const result = await userController.getUserProfile(userId);
-  
+
       expect(result).toEqual(expectedProfile);
       expect(userServiceMock.findProfileByUserId).toHaveBeenCalledWith(userId);
     });
   });
-})
+});

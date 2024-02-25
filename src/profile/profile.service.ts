@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ProfileEntity } from 'src/index.entities';
 import { GetAllProfilesQuery } from './queries/get-profiles.queries';
 
 @Injectable()
