@@ -3,6 +3,11 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
+type ProfileEntity = {
+  userId: string;
+  id: string;
+};
+
 describe('UserController', () => {
   let userController: UserController;
   let userService: UserService;
@@ -15,6 +20,7 @@ describe('UserController', () => {
           provide: UserService,
           useValue: {
             create: jest.fn((dto) => dto),
+            findProfileByUserId: jest.fn(),
           },
         },
       ],
@@ -40,5 +46,27 @@ describe('UserController', () => {
 
     expect(await userController.create(createUserDto)).toEqual(createUserDto);
     expect(userService.create).toHaveBeenCalledWith(createUserDto);
+  });
+
+  describe('getUserProfile', () => {
+    it('должен выводить профиль пользователя по его id', async () => {
+      const userId = 'testId';
+      const expectedProfile: ProfileEntity = {
+        userId: userId,
+        id: 'adc3e5ae-a73f-427c-976d-a37dba30ccfd',
+      };
+
+      const userServiceMock = {
+        findProfileByUserId: jest.fn().mockResolvedValue(expectedProfile),
+      };
+
+      jest.spyOn(userServiceMock, 'findProfileByUserId');
+
+      const userController = new UserController(userServiceMock as any);
+      const result = await userController.getUserProfile(userId);
+
+      expect(result).toEqual(expectedProfile);
+      expect(userServiceMock.findProfileByUserId).toHaveBeenCalledWith(userId);
+    });
   });
 });

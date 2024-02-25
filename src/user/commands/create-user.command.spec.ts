@@ -3,7 +3,7 @@ import { CreateUserCommand } from './create-user.command';
 import { UserEntity } from '../user.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ProfileEntity } from '../profile.entity';
+import { ProfileEntity } from '../../profile/entities/profile.entity';
 
 describe('CreateUserCommand', () => {
   let createUserCommand: CreateUserCommand;

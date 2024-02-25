@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { IsEmail, IsUUID, Length, IsDate, IsUrl } from 'class-validator';
-import { ProfileEntity } from './profile.entity';
+import { ProfileEntity } from '../profile/entities/profile.entity';
 
 @Entity('users')
 @Unique(['email', 'phone'])
@@ -58,7 +58,9 @@ export class UserEntity {
   @IsUrl()
   avatarUrl: string | null;
 
-  @OneToOne(() => ProfileEntity)
+  @OneToOne(() => ProfileEntity,{
+    onDelete: 'CASCADE'
+  })
   @JoinColumn()
   profile: ProfileEntity;
 
