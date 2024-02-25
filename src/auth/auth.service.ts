@@ -3,7 +3,7 @@ import { UserService } from '@/user/user.service';
 import { UserEntity } from '@/user/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { compare as compareHash } from 'bcrypt';
-import { AuthToken, UserLogin } from '@/auth/types';
+import { AuthTokenDto, UserLoginDto } from '@/auth/types';
 import { UserEntityPublic } from '@/user/types';
 import { Nullable } from '@/common/utility-types';
 
@@ -15,8 +15,8 @@ export class AuthService {
   ) {}
 
   async validateUser(
-    username: UserLogin['username'],
-    password: UserLogin['password'],
+    username: UserLoginDto['username'],
+    password: UserLoginDto['password'],
   ): Promise<Nullable<UserEntityPublic>> {
     const user = await this.usersService.findUserByEmail(username);
     if (user) {
@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   async login(user: UserEntity) {
-    const payload: AuthToken = { username: user.email, sub: user.id };
+    const payload: AuthTokenDto = { username: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };

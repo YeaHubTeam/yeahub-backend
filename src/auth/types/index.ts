@@ -1,6 +1,6 @@
-export type AuthToken = { sub: string; username: string };
+export type AuthTokenDto = { sub: string; username: string };
 
-export type UserLogin = {
+export type UserLoginDto = {
   username: string;
   password: string;
 };

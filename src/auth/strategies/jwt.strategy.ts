@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { jwtConstants } from '@/auth/constants';
-import { AuthToken } from '../types';
+import { JWT_KEYS } from '@/auth/constants';
+import { AuthTokenDto } from '../types';
 import { UserEntityPublic } from '@/user/types';
 import { UserService } from '@/user/user.service';
 
@@ -12,12 +12,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: jwtConstants.secret,
+      secretOrKey: JWT_KEYS.ACCESS_SECRET,
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async validate({ sub, username }: AuthToken): Promise<UserEntityPublic> {
+  async validate({ sub }: AuthTokenDto): Promise<UserEntityPublic> {
     const user = await this.userService.findUserById(sub);
     if (!user) {
       throw new UnauthorizedException();
