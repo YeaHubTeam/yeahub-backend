@@ -1,17 +1,12 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config } from 'dotenv';
-import { join } from 'path';
-import { ConfigService } from '@nestjs/config';
 import * as process from 'process';
 import { ENTITIES } from 'src/index.entities';
+import { getPGUrl } from '@/common/utils';
 
 const env = process.env.NODE_ENV || 'development';
-config({ path: join(process.cwd(), `.env.${env}`) });
-const configService = new ConfigService();
 
 const options = (): DataSourceOptions => {
-  const url = configService.get('DATABASE_URL');
-
+  const url = getPGUrl();
   if (!url) {
     throw new Error('Database URL is empty');
   }

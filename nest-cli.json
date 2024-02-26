@@ -16,5 +16,8 @@
         "tsConfigPath": "libs/providers/tsconfig.lib.json"
       }
     }
+  },
+  "watchOptions": {
+    "watchFile": "fixedPollingInterval"
   }
 }
