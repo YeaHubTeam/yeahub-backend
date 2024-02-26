@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@/user/user.service';
 import { UserEntity } from '@/user/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { compare as compareHash, genSalt, hash } from 'bcrypt';
+import { compare as compareHash } from 'bcrypt';
+import { hash as hashArgon } from 'argon2';
 import { TokenPayloadDto, UserLoginDto, AuthTokenDto } from '@/auth/types';
 import { UserEntityPublic } from '@/user/types';
 import { Nullable } from '@/common/utility-types';
-import { JWT_KEYS, SALT_ROUNDS } from '@/auth/constants';
+import { JWT_KEYS } from '@/auth/constants';
 
 @Injectable()
 export class AuthService {
@@ -56,8 +57,7 @@ export class AuthService {
     userId: UserEntity['id'],
     refreshToken: UserEntity['refreshToken'],
   ) {
-    const salt = await genSalt(SALT_ROUNDS);
-    const tokenHashed = await hash(refreshToken, salt);
+    const tokenHashed = await hashArgon(refreshToken);
     await this.usersService.update(userId, { refreshToken: tokenHashed });
   }
 }
