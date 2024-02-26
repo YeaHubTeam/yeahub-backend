@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@/user/user.service';
 import { UserEntity } from '@/user/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { compare as compareHash } from 'bcrypt';
-import { AuthTokenDto, UserLoginDto } from '@/auth/types';
+import { compare as compareHash, genSalt, hash } from 'bcrypt';
+import { TokenPayloadDto, UserLoginDto, AuthTokenDto } from '@/auth/types';
 import { UserEntityPublic } from '@/user/types';
 import { Nullable } from '@/common/utility-types';
+import { JWT_KEYS, SALT_ROUNDS } from '@/auth/constants';
 
 @Injectable()
 export class AuthService {
@@ -32,10 +33,31 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserEntity) {
-    const payload: AuthTokenDto = { username: user.email, sub: user.id };
+  async signTokens(userToken: TokenPayloadDto): Promise<AuthTokenDto> {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(userToken, {
+        secret: JWT_KEYS.ACCESS_SECRET,
+        expiresIn: '15m',
+      }),
+      this.jwtService.signAsync(userToken, {
+        secret: JWT_KEYS.REFRESH_SECRET,
+        expiresIn: '7d',
+      }),
+    ]);
+    await this.updateRefreshToken(userToken.sub, refreshToken);
+
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
+  }
+
+  async updateRefreshToken(
+    userId: UserEntity['id'],
+    refreshToken: UserEntity['refreshToken'],
+  ) {
+    const salt = await genSalt(SALT_ROUNDS);
+    const tokenHashed = await hash(refreshToken, salt);
+    await this.usersService.update(userId, { refreshToken: tokenHashed });
   }
 }

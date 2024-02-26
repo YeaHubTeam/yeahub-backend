@@ -36,25 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddPasswordFieldMigration1707484174628 = void 0;
-var AddPasswordFieldMigration1707484174628 = /** @class */ (function () {
-    function AddPasswordFieldMigration1707484174628() {
-        this.name = 'AddPasswordFieldMigration1707484174628';
+exports.AddRefreshTokenFieldUserMigration1708938819625 = void 0;
+var AddRefreshTokenFieldUserMigration1708938819625 = /** @class */ (function () {
+    function AddRefreshTokenFieldUserMigration1708938819625() {
     }
-    AddPasswordFieldMigration1707484174628.prototype.up = function (queryRunner) {
+    AddRefreshTokenFieldUserMigration1708938819625.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, queryRunner.query("ALTER TABLE \"users\" ADD \"refresh_token\" character varying(255) NULL")];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     };
-    AddPasswordFieldMigration1707484174628.prototype.down = function (queryRunner) {
+    AddRefreshTokenFieldUserMigration1708938819625.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, queryRunner.query("ALTER TABLE \"users\" DROP COLUMN \"refresh_token\"")];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     };
-    return AddPasswordFieldMigration1707484174628;
+    return AddRefreshTokenFieldUserMigration1708938819625;
 }());
-exports.AddPasswordFieldMigration1707484174628 = AddPasswordFieldMigration1707484174628;
+exports.AddRefreshTokenFieldUserMigration1708938819625 = AddRefreshTokenFieldUserMigration1708938819625;

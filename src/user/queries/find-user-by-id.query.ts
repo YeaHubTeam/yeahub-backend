@@ -12,6 +12,6 @@ export class FindUserByIdQuery {
   ) {}
 
   async execute(id: UserEntity['id']): Promise<Nullable<UserEntity>> {
-    return await this.usersRepository.findOneBy({ id });
+    return this.usersRepository.findOneBy({ id });
   }
 }

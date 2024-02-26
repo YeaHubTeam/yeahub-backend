@@ -53,11 +53,20 @@ export class UserEntity {
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   @IsUrl()
-  avatarUrl: string | null;
+  avatarUrl: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    name: 'refresh_token',
+    nullable: true,
+  })
+  @Length(1, 255)
+  refreshToken: string | null;
 }

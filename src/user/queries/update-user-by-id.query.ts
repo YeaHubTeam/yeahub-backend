@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from '@/user/user.entity';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../user.entity';
-import { Nullable } from '@/common/utility-types';
 
 @Injectable()
-export class FindUserByEmailQuery {
+export class UpdateUserByIdQuery {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async execute(email: UserEntity['email']): Promise<Nullable<UserEntity>> {
-    return this.usersRepository.findOneBy({ email });
+  async execute(id: UserEntity['id'], newUser: Partial<UserEntity>) {
+    return this.usersRepository.update({ id }, newUser);
   }
 }

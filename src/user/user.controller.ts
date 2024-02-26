@@ -19,7 +19,6 @@ import { Public } from '@/auth/decorators/public.decorator';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Public()
   @Get()
   async findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();

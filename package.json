@@ -24,7 +24,7 @@
     "migration:run": "npm run migration:compile && npm run typeorm:config migration:run",
     "migration:gen": "cross-env npm run typeorm -- -d ./src/typeorm/typeorm-migrations.config.ts migration:generate ./migrations/${npm_config_name}_migration",
     "migration:compile": "tsc -p ./migrations/tsconfig.migration.json",
-    "migration:create": "cross-env npm run typeorm migration:create ./migrations/${NAME}_migration",
+    "migration:create": "cross-env npm run typeorm migration:create ./migrations/${npm_config_name}_migration",
     "migration:revert": "npm run typeorm:config migration:revert"
   },
   "dependencies": {
