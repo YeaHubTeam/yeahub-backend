@@ -45,4 +45,9 @@ export class AuthController {
 
     return this.authService.signTokens(payload);
   }
+
+  @Get('logout')
+  async logout(@Request() req: { user: TokenPayloadExtendedDto }) {
+    await this.authService.logout(req.user.sub);
+  }
 }

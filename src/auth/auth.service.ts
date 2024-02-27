@@ -60,4 +60,8 @@ export class AuthService {
     const tokenHashed = await hash(refreshToken);
     await this.usersService.update(userId, { refreshToken: tokenHashed });
   }
+
+  async logout(userId: string) {
+    return this.usersService.update(userId, { refreshToken: null });
+  }
 }
