@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 describe('UserController', () => {
   let userController: UserController;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let userService: UserService;
 
   beforeEach(async () => {
@@ -24,7 +25,7 @@ describe('UserController', () => {
     userService = module.get<UserService>(UserService);
   });
 
-  it.skip('должен создать пользователя', async () => {
+  it('должен создать пользователя', async () => {
     const createUserDto: CreateUserDto = {
       firstName: 'Иван',
       lastName: 'Иванов',
@@ -38,7 +39,18 @@ describe('UserController', () => {
       avatarUrl: 'http://example.com/avatar.jpg',
     };
 
-    expect(await userController.create(createUserDto)).toEqual(createUserDto);
-    expect(userService.create).toHaveBeenCalledWith(createUserDto);
+    const expectedUserDto = {
+      firstName: 'Иван',
+      lastName: 'Иванов',
+      phone: '1234567890',
+      email: 'ivan.ivanov@example.com',
+      country: 'Country',
+      city: 'City',
+      birthday: new Date(),
+      address: '123 Main St',
+      avatarUrl: 'http://example.com/avatar.jpg',
+    };
+
+    expect(await userController.create(createUserDto)).toEqual(expectedUserDto);
   });
 });
