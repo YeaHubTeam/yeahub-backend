@@ -10,9 +10,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { genSalt, hash } from 'bcrypt';
-import { SALT_ROUNDS } from '@/auth/constants';
 import { Public } from '@/auth/decorators/public.decorator';
+import { hashPassword } from '@/common/utils/hash-password';
 
 @ApiTags('users')
 @Controller('users')
@@ -43,6 +42,7 @@ export class UserController {
         birthday: '1990-01-01',
         address: '123 Main St',
         avatarUrl: 'http://example.com/avatar.jpg',
+        refresh_token: null,
       },
     },
   })
@@ -55,13 +55,12 @@ export class UserController {
     description: 'Email already exists',
   })
   async create(@Body() userDto: CreateUserDto) {
-    const salt = await genSalt(SALT_ROUNDS);
-    const passwordHashed = await hash(userDto.passwordHash, salt);
-    const userWithHashedPassword = { ...userDto, passwordHash: passwordHashed };
+    const passwordHashed = await hashPassword(userDto.passwordHash);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { passwordHash, ...userResult } = await this.userService.create(
-      userWithHashedPassword,
-    );
+    const { passwordHash, ...userResult } = await this.userService.create({
+      ...userDto,
+      passwordHash: passwordHashed,
+    });
 
     return userResult;
   }

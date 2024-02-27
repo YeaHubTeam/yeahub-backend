@@ -31,7 +31,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
       throw new ForbiddenException('Access Denied');
     }
 
-    const isTokenMatch = await verifyHash(user.refreshToken, refreshToken)
+    const isTokenMatch = await verifyHash(user.refreshToken, refreshToken);
     if (!isTokenMatch) {
       throw new ForbiddenException('Access Denied');
     }

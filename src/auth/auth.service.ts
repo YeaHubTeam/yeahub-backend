@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@/user/user.service';
 import { UserEntity } from '@/user/user.entity';
 import { JwtService } from '@nestjs/jwt';
-import { compare as compareHash } from 'bcrypt';
-import { hash as hashArgon } from 'argon2';
+import { hash, verify as verifyHash } from 'argon2';
 import { TokenPayloadDto, UserLoginDto, AuthTokenDto } from '@/auth/types';
 import { UserEntityPublic } from '@/user/types';
 import { Nullable } from '@/common/utility-types';
@@ -22,7 +21,7 @@ export class AuthService {
   ): Promise<Nullable<UserEntityPublic>> {
     const user = await this.usersService.findUserByEmail(username);
     if (user) {
-      const isPassportMatch = await compareHash(password, user.passwordHash);
+      const isPassportMatch = await verifyHash(user.passwordHash, password);
 
       if (isPassportMatch) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,6 +44,7 @@ export class AuthService {
         expiresIn: '7d',
       }),
     ]);
+
     await this.updateRefreshToken(userToken.sub, refreshToken);
 
     return {
@@ -57,7 +57,7 @@ export class AuthService {
     userId: UserEntity['id'],
     refreshToken: UserEntity['refreshToken'],
   ) {
-    const tokenHashed = await hashArgon(refreshToken);
+    const tokenHashed = await hash(refreshToken);
     await this.usersService.update(userId, { refreshToken: tokenHashed });
   }
 }
