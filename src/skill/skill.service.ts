@@ -11,11 +11,11 @@ export class SkillService {
     private getSkillsQuery: GetSkillsQuery,
   ) {}
 
-  findAll(): Promise<SkillEntity[]> {
-    return this.getSkillsQuery.execute();
+  async getSkills(): Promise<SkillEntity[]> {
+    return await this.getSkillsQuery.execute();
   }
 
-  create(skillDto: CreateSkillDto): Promise<SkillEntity> {
-    return this.createSkillCommand.execute(skillDto);
+  async createSkill(CreateSkillDto: CreateSkillDto): Promise<SkillEntity> {
+    return await this.createSkillCommand.execute(CreateSkillDto);
   }
 }

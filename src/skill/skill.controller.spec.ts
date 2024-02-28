@@ -14,7 +14,7 @@ describe('SkillController', () => {
         {
           provide: SkillService,
           useValue: {
-            create: jest.fn((dto) => dto),
+            createSkill: jest.fn((dto) => dto),
           },
         },
       ],
@@ -29,12 +29,11 @@ describe('SkillController', () => {
       title: 'JAVA',
       description: 'Very nice',
       imageSrc: 'http://example.com/imageSrc.jpg',
-      resumeId: 1,
     };
 
-    expect(await skillController.create(createSkillDto)).toEqual(
+    expect(await skillController.createSkill(createSkillDto)).toEqual(
       createSkillDto,
     );
-    expect(skillService.create).toHaveBeenCalledWith(createSkillDto);
+    expect(skillService.createSkill).toHaveBeenCalledWith(createSkillDto);
   });
 });

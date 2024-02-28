@@ -31,6 +31,4 @@ export class SkillEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
-
-  // @ManyToOne(() => Resume)
 }

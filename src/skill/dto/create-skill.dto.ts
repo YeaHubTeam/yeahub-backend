@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, Length, IsNumber, IsUrl, IsNotEmpty } from 'class-validator';
+import { IsString, Length, IsUrl } from 'class-validator';
 
 export class CreateSkillDto {
   @ApiProperty({ example: 'JAVA', description: 'Title of the skill' })
@@ -19,9 +19,4 @@ export class CreateSkillDto {
   })
   @IsUrl()
   imageSrc: string | null;
-
-  @ApiProperty({ description: 'ID of the related resume' })
-  @IsNotEmpty()
-  @IsNumber()
-  resumeId: number;
 }
