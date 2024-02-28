@@ -6,9 +6,14 @@ import { ConfigModule } from '@nestjs/config';
 import { QuestionModule } from './question/question.module';
 
 @Module({
-  imports: [TypeormModule, UserModule, FilterModule, QuestionModule, ConfigModule.forRoot()],
+  imports: [
+    TypeormModule,
+    UserModule,
+    FilterModule,
+    QuestionModule,
+    ConfigModule.forRoot(),
+  ],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
-

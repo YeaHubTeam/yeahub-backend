@@ -17,34 +17,21 @@ export class CreateQuestionDto {
   @Length(1, 255)
   title: string;
 
-  @ApiProperty({
-    example: 'What is Event Loop?',
-    description: 'question description',
-  })
+  @ApiProperty({ example: 'What is Event Loop?', description: 'question description' })
   @IsString()
   @Length(1, 255)
   description: string;
 
-  @ApiProperty({
-    example: 'http://example.com/imageSrc.jpg',
-    description: 'ID of the related resume',
-    required: false,
-  })
+  @ApiProperty({ example: 'http://example.com/imageSrc.jpg', description: 'ID of the related resume', required: false })
   @IsUrl()
   imageSrc: string | null;
 
-  @ApiProperty({
-    example: ['JavaScript'],
-    description: 'keywords your question',
-  })
+  @ApiProperty({ example: ['JavaScript'], description: 'keywords your question' })
   @IsArray()
   @Length(1, 255, { each: true })
   keywords: string[] | null;
 
-  @ApiProperty({
-    example: '2+2=4',
-    description: 'short answer to the question',
-  })
+  @ApiProperty({example: '2+2=4', description: 'short answer to the question' })
   @IsString()
   @IsOptional()
   @Length(1, 255)
@@ -56,19 +43,11 @@ export class CreateQuestionDto {
   @Length(1, 255)
   longAnswer: string | null;
 
-  @ApiProperty({
-    example: 'draft',
-    description: 'status your question',
-    required: true,
-  })
+  @ApiProperty({example: 'draft', description: 'status your question', required: true })
   @IsIn(['public', 'draft'])
   status: 'public' | 'draft';
 
-  @ApiProperty({
-    example: 8,
-    description: 'rating your question',
-    required: true,
-  })
+  @ApiProperty({example: 8, description: 'rating your question', required: true })
   @IsNumber()
   @Min(1)
   @Max(10)
