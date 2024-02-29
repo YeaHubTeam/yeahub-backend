@@ -1,9 +1,10 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 export function GetProfilesApiDocs() {
   return applyDecorators(
     HttpCode(HttpStatus.OK),
+    ApiOperation({ summary: 'Find all user profiles' }),
     ApiResponse({
       status: HttpStatus.OK,
       description: 'Profiles successfully found',

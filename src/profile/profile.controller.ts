@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { ApiTags } from '@nestjs/swagger';
-import { GetProfilesApiDocs } from './decorators/get-profiles.decorator';
+import { GetProfilesApiDocs } from './decorators/profiles-api-docs.decorator';
 
 @ApiTags('profiles')
 @Controller('profiles')
