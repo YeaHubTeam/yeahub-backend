@@ -16,33 +16,28 @@ export class CreateUserCommand {
     const connection = this.usersRepository.manager.connection;
     const queryRunner = connection.createQueryRunner();
 
-    return queryRunner
-      .connect()
-      .then(() => queryRunner.startTransaction())
-      .then(async () => {
-        const user = this.usersRepository.create(createUserDto);
-        return queryRunner.manager
-          .save(UserEntity, user)
-          .then(async (savedUser) => {
-            const profile = new ProfileEntity();
-            profile.userId = savedUser.id;
+    try {
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
 
-            return queryRunner.manager.save(ProfileEntity, profile).then(() => {
-              savedUser.profile = profile;
-              return queryRunner.manager.save(UserEntity, savedUser);
-            });
-          });
-      })
-      .then(async (updatedUser) => {
-        await queryRunner.commitTransaction();
-        return updatedUser;
-      })
-      .catch(async (error) => {
-        await queryRunner.rollbackTransaction();
-        throw error;
-      })
-      .finally(async () => {
-        await queryRunner.release();
-      });
+      const user = this.usersRepository.create(createUserDto);
+      const savedUser = await queryRunner.manager.save(UserEntity, user);
+
+      const profile = new ProfileEntity();
+      profile.userId = savedUser.id;
+
+      await queryRunner.manager.save(ProfileEntity, profile);
+
+      savedUser.profile = profile;
+      const updatedUser = await queryRunner.manager.save(UserEntity, savedUser);
+
+      await queryRunner.commitTransaction();
+      return updatedUser;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

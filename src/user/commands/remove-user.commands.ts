@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../user.entity';
 import { ProfileEntity } from '../../profile/entities/profile.entity';
 
-
 @Injectable()
 export class RemoveUserCommand {
   constructor(
@@ -21,18 +20,18 @@ export class RemoveUserCommand {
       .then(() => queryRunner.startTransaction())
       .then(async () => {
         const user = await this.usersRepository.findOne({
-            where: { id: userId },
-            relations: ['profile'],
-          });
+          where: { id: userId },
+          relations: ['profile'],
+        });
 
         if (!user) {
           throw new NotFoundException('User not found');
         }
         const profile = await connection.getRepository(ProfileEntity).findOne({
-            where: {
-              userId: user.id,
-            },
-          });
+          where: {
+            userId: user.id,
+          },
+        });
 
         if (profile) {
           await queryRunner.manager.delete(ProfileEntity, profile.id);
