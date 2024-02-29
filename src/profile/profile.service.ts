@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { GetAllProfilesQuery } from './queries/get-profiles.queries';
+import { GetProfilesQuery } from './queries/get-profiles.queries';
 
 @Injectable()
 export class ProfileService {
-  constructor(private getAllProfilesQuery: GetAllProfilesQuery) {}
+  constructor(private getProfilesQuery: GetProfilesQuery) {}
 
   findAll() {
-    return this.getAllProfilesQuery.execute();
+    return this.getProfilesQuery.execute();
   }
 }

@@ -4,28 +4,27 @@ import { Repository } from 'typeorm';
 import { ProfileEntity } from '../entities/profile.entity';
 
 @Injectable()
-export class GetAllProfilesQuery {
+export class GetProfilesQuery {
   constructor(
     @InjectRepository(ProfileEntity)
     private profilesRepository: Repository<ProfileEntity>,
   ) {}
 
   async execute() {
-    const profiles = await this.profilesRepository.find({
-      relations: ['user'],
-    });
-
-    return profiles.map((profile) => ({
-      id: profile.id,
-      userId: profile.userId,
-      user: {
-        id: profile.user.id,
-        firstName: profile.user.firstName,
-        lastName: profile.user.lastName,
-        avatarUrl: profile.user.avatarUrl,
-        createdAt: profile.user.createdAt,
-        updatedAt: profile.user.updatedAt,
+    return await this.profilesRepository.find({
+      select: {
+        user: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          avatarUrl: true,
+          createdAt: true,
+          updatedAt: true,
+        },
       },
-    }));
+      relations: {
+        user: true,
+      },
+    });
   }
 }

@@ -67,7 +67,6 @@ describe('CreateUserCommand', () => {
     userRepositoryMock.save.mockResolvedValue(user);
 
     const profile = new ProfileEntity();
-    profile.userId = 'uuid';
 
     profileRepositoryMock.create.mockReturnValue(profile);
     profileRepositoryMock.save.mockResolvedValue(profile);

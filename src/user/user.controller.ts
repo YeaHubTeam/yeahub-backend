@@ -92,6 +92,6 @@ export class UserController {
     description: 'User not found',
   })
   remove(@Param('userId') userId: string) {
-    return this.userService.remove(userId)
+    return this.userService.remove(userId);
   }
 }

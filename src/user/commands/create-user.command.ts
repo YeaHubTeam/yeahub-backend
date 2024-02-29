@@ -24,7 +24,6 @@ export class CreateUserCommand {
       const savedUser = await queryRunner.manager.save(UserEntity, user);
 
       const profile = new ProfileEntity();
-      profile.userId = savedUser.id;
 
       await queryRunner.manager.save(ProfileEntity, profile);
 
