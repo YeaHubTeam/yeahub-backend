@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { CreateUserCommand } from './create-user.command';
-import { UserEntity } from '../user.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ProfileEntity } from '../../profile/entities/profile.entity';
+import { UserEntity } from '../entities/user.entity';
 
 describe('CreateUserCommand', () => {
   let createUserCommand: CreateUserCommand;

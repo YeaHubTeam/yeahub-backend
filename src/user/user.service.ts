@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserCommand, RemoveUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
-import { UserEntity } from './user.entity';
 import { GetUserProfileQuery } from './queries/get-user-profile.queries';
+import { UserEntity } from './entities/user.entity';
 @Injectable()
 export class UserService {
   constructor(
@@ -17,7 +17,7 @@ export class UserService {
     return this.getUsersQuery.execute();
   }
 
-  create(userDto: CreateUserDto): Promise<UserEntity> {
+  create(userDto: CreateUserDto) {
     return this.createUserCommand.execute(userDto);
   }
 

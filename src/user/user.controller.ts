@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto';
-import { UserEntity } from './user.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { ProfileEntity } from '../profile/entities/profile.entity';
 import {
@@ -10,6 +9,7 @@ import {
   GetUsersApiDocs,
   RemoveUserApiDocs,
 } from './decorators/user-api-docs.decorator';
+import { UserEntity } from './entities/user.entity';
 
 @ApiTags('users')
 @Controller('users')

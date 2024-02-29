@@ -4,10 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';
 import { USERS_COMMANDS } from './commands';
 import { USERS_QUERIES } from './queries';
-import { UserEntity } from './user.entity';
+import { ProfileEntity } from 'src/index.entities';
+import { UserEntity } from './entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
+  imports: [TypeOrmModule.forFeature([UserEntity, ProfileEntity])],
   providers: [UserService, ...USERS_COMMANDS, ...USERS_QUERIES],
   controllers: [UserController],
   exports: [TypeOrmModule, UserService],
