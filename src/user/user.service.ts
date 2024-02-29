@@ -3,8 +3,7 @@ import { CreateUserCommand, RemoveUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
 import { CreateUserDto } from './dto';
 import { UserEntity } from './user.entity';
-import { GetUserProfileQuery } from './queries/get-profiles.queries';
-
+import { GetUserProfileQuery } from './queries/get-user-profile.queries';
 @Injectable()
 export class UserService {
   constructor(
