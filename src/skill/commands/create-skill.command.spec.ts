@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { CreateSkillCommand } from './create-skill.command';
-import { SkillEntity } from '../skill.entity';
+import { SkillEntity } from '../entities/skill.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -34,7 +34,6 @@ describe('CreateSkillCommand', () => {
       title: 'JAVA',
       description: 'Very nice',
       imageSrc: 'http://example.com/imageSrc.jpg',
-      resumeId: 1,
     };
 
     const skill = new SkillEntity();

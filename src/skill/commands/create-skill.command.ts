@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateSkillDto } from '../dto/create-skill.dto';
-import { SkillEntity } from '../skill.entity';
+import { SkillEntity } from '../entities/skill.entity';
 
 @Injectable()
 export class CreateSkillCommand {

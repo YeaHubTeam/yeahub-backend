@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SkillService } from './skill.service';
 import { CreateSkillDto } from './dto/create-skill.dto';
-import { SkillEntity } from './skill.entity';
+import { SkillEntity } from './entities/skill.entity';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateSkillApiDocs } from './decorators/create-skill.decorators';
+import { CreateSkillApiDocs } from './decorators/create-skill.decorator';
 
 @ApiTags('skills')
 @Controller('skills')

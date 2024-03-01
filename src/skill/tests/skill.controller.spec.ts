@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SkillController } from './skill.controller';
-import { SkillService } from './skill.service';
-import { CreateSkillDto } from './dto/create-skill.dto';
+import { SkillController } from '../skill.controller';
+import { SkillService } from '../skill.service';
+import { CreateSkillDto } from '../dto/create-skill.dto';
 
 describe('SkillController', () => {
   let skillController: SkillController;

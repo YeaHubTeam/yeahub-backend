@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SkillEntity } from './skill.entity';
+import { SkillEntity } from './entities/skill.entity';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { CreateSkillCommand } from './commands/create-skill.command';
 import { GetSkillsQuery } from './queries/get-skills.query';
