@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { CreateQuestionCommand } from './create-question.command';
+import { CreateQuestionCommand } from '../commands/create-question.command'
 import { QuestionEntity } from '../question.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
