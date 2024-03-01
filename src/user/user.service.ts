@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserCommand, RemoveUserCommand } from './commands';
 import { GetUsersQuery } from './queries';
-import { CreateUserDto } from './dto';
-import { GetUserProfileQuery } from './queries/get-user-profile.queries';
-import { UserEntity } from './entities/user.entity';
+import { CreateUserDto, PublicUserDto } from './dto';
+
 @Injectable()
 export class UserService {
   constructor(
     private createUserCommand: CreateUserCommand,
     private removeUserCommand: RemoveUserCommand,
     private getUsersQuery: GetUsersQuery,
-    private getUserProfileQuery: GetUserProfileQuery,
   ) {}
 
-  findAll(): Promise<UserEntity[]> {
+  findAll(): Promise<PublicUserDto[]> {
     return this.getUsersQuery.execute();
   }
 
@@ -21,11 +19,7 @@ export class UserService {
     return this.createUserCommand.execute(userDto);
   }
 
-  remove(userId: string) {
+  delete(userId: string) {
     return this.removeUserCommand.execute(userId);
-  }
-
-  findProfileByUserId(userId: string) {
-    return this.getUserProfileQuery.execute(userId);
   }
 }

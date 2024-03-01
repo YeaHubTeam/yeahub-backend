@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';
 import { USERS_COMMANDS } from './commands';
 import { USERS_QUERIES } from './queries';
-import { ProfileEntity } from 'src/index.entities';
 import { UserEntity } from './entities/user.entity';
+import { ProfileEntity } from 'src/index.entities';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, ProfileEntity])],

@@ -4,6 +4,7 @@ import { QueryFailedError, Repository } from 'typeorm';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { ProfileEntity } from '../../profile/entities/profile.entity';
 import { UserEntity } from '../entities/user.entity';
+import { PublicUserDto } from '../dto';
 
 @Injectable()
 export class CreateUserCommand {
@@ -30,23 +31,8 @@ export class CreateUserCommand {
       savedUser.profile = profile;
       const updatedUser = await queryRunner.manager.save(UserEntity, savedUser);
 
-      const userDataSubset = {
-        id: updatedUser.id,
-        firstName: updatedUser.firstName,
-        lastName: updatedUser.lastName,
-        phone: updatedUser.phone,
-        email: updatedUser.email,
-        country: updatedUser.country,
-        city: updatedUser.city,
-        birthday: updatedUser.birthday,
-        address: updatedUser.address,
-        avatarUrl: updatedUser.avatarUrl,
-        createdAt: updatedUser.createdAt,
-        updatedAt: updatedUser.updatedAt,
-      };
-
       await queryRunner.commitTransaction();
-      return userDataSubset;
+      return new PublicUserDto(updatedUser);
     } catch (error) {
       await queryRunner.rollbackTransaction();
 
