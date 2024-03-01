@@ -10,20 +10,12 @@ describe('CreateUserCommand', () => {
   let userRepositoryMock: Partial<
     Record<keyof Repository<UserEntity>, jest.Mock>
   >;
-  // let profileRepositoryMock: Partial<
-  //   Record<keyof Repository<ProfileEntity>, jest.Mock>
-  // >;
 
   beforeEach(async () => {
     userRepositoryMock = {
       create: jest.fn(),
       save: jest.fn(),
     };
-
-    // profileRepositoryMock = {
-    //   create: jest.fn(),
-    //   save: jest.fn(),
-    // };
 
     const moduleRef = await Test.createTestingModule({
       providers: [
@@ -32,10 +24,6 @@ describe('CreateUserCommand', () => {
           provide: getRepositoryToken(UserEntity),
           useValue: userRepositoryMock,
         },
-        // {
-        //   provide: getRepositoryToken(ProfileEntity),
-        //   useValue: userRepositoryMock,
-        // },
       ],
     }).compile();
 
@@ -66,20 +54,11 @@ describe('CreateUserCommand', () => {
     userRepositoryMock.create.mockReturnValue(userDto);
     userRepositoryMock.save.mockResolvedValue(userDto);
 
-    // const profile = new ProfileEntity();
-
-    // profileRepositoryMock.create.mockReturnValue(profile);
-    // profileRepositoryMock.save.mockResolvedValue(profile);
-
     try {
       const result = await createUserCommand.execute(user);
 
       expect(userRepositoryMock.create).toHaveBeenCalledWith(userDto);
       expect(userRepositoryMock.save).toHaveBeenCalledWith(user);
-      // expect(profileRepositoryMock.create).toHaveBeenCalledWith({
-      //   userId: user.id,
-      // });
-      // expect(profileRepositoryMock.save).toHaveBeenCalledWith(profile);
       expect(result).toEqual(user);
     } catch (error) {
       console.error('Error during test execution:', error);
