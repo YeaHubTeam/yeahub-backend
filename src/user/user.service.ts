@@ -10,11 +10,11 @@ export class UserService {
     private getUsersQuery: GetUsersQuery,
   ) {}
 
-  getUsers(): Promise<PublicUserDto[]> {
-    return this.getUsersQuery.execute();
+  async getUsers(): Promise<PublicUserDto[]> {
+    return await this.getUsersQuery.execute();
   }
 
-  createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
-    return this.createUserCommand.execute(userDto);
+  async createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
+    return await this.createUserCommand.execute(userDto);
   }
 }
