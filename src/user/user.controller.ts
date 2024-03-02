@@ -1,11 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, PublicUserDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreateUserApiDocs,
   GetUsersApiDocs,
-  RemoveUserApiDocs,
 } from './decorators/user-api-docs.decorator';
 
 @ApiTags('users')
@@ -23,11 +22,5 @@ export class UserController {
   @CreateUserApiDocs()
   create(@Body() userDto: CreateUserDto) {
     return this.userService.create(userDto);
-  }
-
-  @Delete(':userId')
-  @RemoveUserApiDocs()
-  delete(@Param('userId') userId: string) {
-    return this.userService.delete(userId);
   }
 }
