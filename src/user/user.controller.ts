@@ -2,10 +2,8 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, PublicUserDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
-import {
-  CreateUserApiDocs,
-  GetUsersApiDocs,
-} from './decorators/user-api-docs.decorator';
+import { GetUsersApiDocs } from './decorators/get-users.decorator';
+import { CreateUserApiDocs } from './decorators/create-user.decorator';
 
 @ApiTags('users')
 @Controller('users')
