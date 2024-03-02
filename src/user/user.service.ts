@@ -10,11 +10,11 @@ export class UserService {
     private getUsersQuery: GetUsersQuery,
   ) {}
 
-  findAll(): Promise<PublicUserDto[]> {
+  getUsers(): Promise<PublicUserDto[]> {
     return this.getUsersQuery.execute();
   }
 
-  create(userDto: CreateUserDto) {
+  createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
     return this.createUserCommand.execute(userDto);
   }
 }

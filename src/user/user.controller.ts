@@ -14,13 +14,13 @@ export class UserController {
 
   @Get()
   @GetUsersApiDocs()
-  async findAll(): Promise<PublicUserDto[]> {
-    return this.userService.findAll();
+  async getUsers(): Promise<PublicUserDto[]> {
+    return this.userService.getUsers();
   }
 
   @Post()
   @CreateUserApiDocs()
-  create(@Body() userDto: CreateUserDto) {
-    return this.userService.create(userDto);
+  createUser(@Body() userDto: CreateUserDto): Promise<PublicUserDto> {
+    return this.userService.createUser(userDto);
   }
 }
