@@ -1,5 +1,5 @@
-import { UserEntity } from './user/user.entity';
+import { ProfessionEntity } from './profession/entities/profession.entity';
 
 export * from './user/user.entity';
 
-export const ENTITIES = [UserEntity];
+export const ENTITIES = [ProfessionEntity];
