@@ -1,0 +1,136 @@
+{
+  "window.title": "${dirty}${appName} ¯\\_(ツ)_/¯ ${rootName}",
+  "window.menuBarVisibility": "hidden",
+  "window.zoomLevel": 1,
+  "editor.tabSize": 2,
+  "editor.inlineSuggest.enabled": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.scale": 2,
+  "editor.minimap.showSlider": "always",
+  "editor.stickyScroll.enabled": false,
+  "editor.inlayHints.enabled": "on",
+  "editor.bracketPairColorization.enabled": false,
+  "editor.fontLigatures": true,
+  "editor.matchBrackets": "near",
+  "editor.linkedEditing": true,
+  "editor.rulers": [80],
+  "editor.fontFamily": "Consolas, 'Courier New', monospace",
+  // "editor.fontFamily": "Monocraft",
+  // "editor.fontFamily": "Liberation Mono",
+  "editor.fontSize": 14,
+  "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+  "editor.cursorBlinking": "smooth",
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never"
+  },
+  "git.mergeEditor": true,
+  "git.suggestSmartCommit": false,
+  "git.branchProtection": ["gh-pages"],
+  "git.branchProtectionPrompt": "alwaysPrompt",
+  "git.confirmSync": false,
+  "diffEditor.diffAlgorithm": "advanced",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.enablePreview": false,
+  "workbench.localHistory.enabled": false,
+  "workbench.list.smoothScrolling": true,
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.startupEditor": "none",
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#80808010"
+  },
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.minimumContrastRatio": 1,
+  "terminal.integrated.gpuAcceleration": "canvas",
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+  // "terminal.integrated.fontFamily": "Consolas, 'Courier New', monospace",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "explorer.compactFolders": false,
+  "json.validate.enable": true,
+  "search.useIgnoreFiles": true,
+  "update.showReleaseNotes": true,
+  "security.workspace.trust.enabled": false,
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  "javascript.preferences.renameMatchingJsxTags": true,
+  "javascript.updateImportsOnFileMove.enabled": "prompt",
+  "javascript.inlayHints.variableTypes.enabled": false,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "typescript.preferences.renameMatchingJsxTags": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.inlayHints.variableTypes.enabled": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "multiDiffEditor.experimental.enabled": true,
+  "screencastMode.fontSize": 25,
+  "screencastMode.verticalOffset": 0,
+  "screencastMode.keyboardOverlayTimeout": 1000,
+  "screencastMode.mouseIndicatorSize": 25,
+  "screencastMode.mouseIndicatorColor": "#569cd6",
+  "auto-run-command.rules": [
+    {
+      "condition": "always",
+      "command": "workbench.action.toggleScreencastMode",
+      "message": "Running a Screencast Mode"
+    }
+  ],
+  "extensions.ignoreRecommendations": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "doppler.hover.enable": false,
+  "svelte.enable-ts-plugin": true,
+  "go.toolsManagement.autoUpdate": true,
+  "liveshare.accessibility.voiceEnabled": false,
+  "redhat.telemetry.enabled": false,
+  "codeium.enableCodeLens": false,
+  "codeium.enableConfig": {
+    "*": true,
+    "markdown": true,
+    "mdx": true,
+    "plaintext": true,
+    "properties": true,
+    "prisma": true,
+    "xml": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "prettify-ts.enableHover": false,
+  "prettify-ts.viewNestedTypes": false,
+  // "http.proxy": "http://foo:bar@example.com:1337",
+  // "http.proxyStrictSSL": false,
+  // "http.proxySupport": "on",
+}
