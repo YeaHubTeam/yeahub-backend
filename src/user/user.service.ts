@@ -6,6 +6,7 @@ import { Nullable } from '@/common/utility-types';
 import { FindUserByEmailQuery } from '@/user/queries/find-user-by-email.query';
 import { UpdateUserByIdQuery } from '@/user/queries/update-user-by-id.query';
 import { UserEntity } from '@/user/entities/user.entity';
+import { hashPassword } from '@/common/utils/hash-password';
 
 @Injectable()
 export class UserService {
@@ -30,7 +31,12 @@ export class UserService {
   }
 
   async createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
-    return await this.createUserCommand.execute(userDto);
+    const passwordHashed = await hashPassword(userDto.passwordHash);
+
+    return this.createUserCommand.execute({
+      ...userDto,
+      passwordHash: passwordHashed,
+    });
   }
 
   async update(userId: UserEntity['id'], newUserDto: Partial<UserEntity>) {

@@ -10,28 +10,20 @@ import {
   TokenPayloadExtendedDto,
 } from '@/auth/types';
 import { JwtRefreshGuard } from '@/auth/guards/jwt-refresh.guard';
+import { ApiTags } from '@nestjs/swagger';
 import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { authTokensMock, userLoginMock } from '@/auth/constants';
-import { userMock } from '@/user/constant';
+  LoginApiDocs,
+  LogoutApiDocs,
+  ProfileApiDocs,
+  RefreshApiDocs,
+} from '@/auth/decorators/api-docs.decorator';
 
 @ApiTags('authentication')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Login user' })
-  @ApiResponse({
-    status: 200,
-    description: 'Authentication successful',
-    schema: { example: authTokensMock },
-  })
-  @ApiBody({ schema: { example: userLoginMock } })
+  @LoginApiDocs()
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -44,24 +36,13 @@ export class AuthController {
     return this.authService.signTokens(tokenPayload);
   }
 
-  @ApiOperation({ summary: 'Getting user profile' })
-  @ApiResponse({
-    status: 200,
-    description: 'User profile retrieved successfully',
-    schema: { example: userMock },
-  })
-  @ApiBearerAuth()
+  @ProfileApiDocs()
   @Get('profile')
   async getProfile(@Request() req: { user: UserEntityPublic }) {
     return req.user;
   }
 
-  @ApiOperation({ summary: 'Refresh authentication token' })
-  @ApiResponse({
-    status: 200,
-    description: 'Token refreshed successfully',
-    schema: { example: authTokensMock },
-  })
+  @RefreshApiDocs()
   @Public()
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
@@ -76,11 +57,9 @@ export class AuthController {
     return this.authService.signTokens(payload);
   }
 
-  @ApiOperation({ summary: 'Logout user' })
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'User logged out successfully' })
+  @LogoutApiDocs()
   @Get('logout')
-  async logout(@Request() req: { user: TokenPayloadExtendedDto }) {
-    await this.authService.logout(req.user.sub);
+  async logout(@Request() req: { user: UserEntityPublic }) {
+    await this.authService.logout(req.user.id);
   }
 }

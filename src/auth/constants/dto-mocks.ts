@@ -1,5 +1,9 @@
-import { AuthTokenDto, UserLoginDto } from '@/auth/types';
+import { AuthTokenDto, TokenPayloadDto, UserLoginDto } from '@/auth/types';
 
+export const tokenPayloadMock: TokenPayloadDto = {
+  sub: '12',
+  username: 'mock-user@mock',
+};
 export const userLoginMock: UserLoginDto = {
   username: 'mock-user@mock',
   password: 'pwd-1234#secure',

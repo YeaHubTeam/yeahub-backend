@@ -6,6 +6,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { verify as verifyHash } from 'argon2';
 import { UserService } from '@/user/user.service';
 import { TokenPayloadExtendedDto } from '@/auth/types';
+import { UserEntity } from '@/user/entities/user.entity';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
@@ -20,7 +21,12 @@ export class JwtRefreshStrategy extends PassportStrategy(
     });
   }
 
-  async validate(req: Request, userToken: TokenPayloadExtendedDto) {
+  async validate(
+    req: Request,
+    userToken: TokenPayloadExtendedDto,
+  ): Promise<
+    TokenPayloadExtendedDto & { refreshToken: UserEntity['refreshToken'] }
+  > {
     const refreshToken = req.get('Authorization').replace('Bearer', '').trim();
     if (!refreshToken) {
       throw new ForbiddenException('Access Denied');

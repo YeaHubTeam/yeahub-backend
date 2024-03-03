@@ -1,6 +1,7 @@
 import { UserEntity } from '@/user/entities/user.entity';
 
 export const userMock: UserEntity = {
+  ...new UserEntity(),
   id: '121kjdksls',
   firstName: 'John',
   lastName: 'Doe',
