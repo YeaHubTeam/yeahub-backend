@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserCommand } from './commands';
-import { GetUsersQuery } from './queries';
-import { CreateUserDto } from './dto';
+import { GetUsersQuery, FindUserByIdQuery } from './queries';
+import { CreateUserDto, PublicUserDto } from './dto';
 import { UserEntity } from './user.entity';
-import { FindUserByIdQuery } from './queries/find-user-by-id.query';
 
 @Injectable()
 export class UserService {
@@ -13,15 +12,16 @@ export class UserService {
     private findUserByIdQuery: FindUserByIdQuery,
   ) {}
 
-  findUserById(id: string): Promise<UserEntity> {
-    return this.findUserByIdQuery.execute(id);
+
+  async getUsers(): Promise<PublicUserDto[]> {
+    return await this.getUsersQuery.execute();
+  }
+  
+  async findUserById(id: string): Promise<UserEntity> {
+    return await this.findUserByIdQuery.execute(id);
   }
 
-  findAll(): Promise<UserEntity[]> {
-    return this.getUsersQuery.execute();
-  }
-
-  create(userDto: CreateUserDto): Promise<UserEntity> {
-    return this.createUserCommand.execute(userDto);
+  async createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
+    return await this.createUserCommand.execute(userDto);
   }
 }
