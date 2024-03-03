@@ -1,5 +1,5 @@
 import { Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
-import { UserEntity } from '@/user/user.entity';
+import { UserEntity } from '@/user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserEntityPublic } from '@/user/types';

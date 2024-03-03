@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserCommand } from './commands';
-import { GetUsersQuery } from './queries';
-import { CreateUserDto } from './dto';
-import { UserEntity } from './user.entity';
-import { FindUserByIdQuery } from './queries/find-user-by-id.query';
+import { GetUsersQuery, FindUserByIdQuery } from './queries';
+import { CreateUserDto, PublicUserDto } from './dto';
 import { Nullable } from '@/common/utility-types';
 import { FindUserByEmailQuery } from '@/user/queries/find-user-by-email.query';
 import { UpdateUserByIdQuery } from '@/user/queries/update-user-by-id.query';
+import { UserEntity } from '@/user/entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -18,20 +17,20 @@ export class UserService {
     private updateUserByIdQuery: UpdateUserByIdQuery,
   ) {}
 
-  findUserById(id: UserEntity['id']): Promise<Nullable<UserEntity>> {
-    return this.findUserByIdQuery.execute(id);
+  async getUsers(): Promise<PublicUserDto[]> {
+    return await this.getUsersQuery.execute();
   }
 
-  findAll(): Promise<UserEntity[]> {
-    return this.getUsersQuery.execute();
+  findUserById(id: UserEntity['id']): Promise<Nullable<UserEntity>> {
+    return this.findUserByIdQuery.execute(id);
   }
 
   async findUserByEmail(email: UserEntity['email']): Promise<UserEntity> {
     return this.findUserByEmailQuery.execute(email);
   }
 
-  create(userDto: CreateUserDto): Promise<UserEntity> {
-    return this.createUserCommand.execute(userDto);
+  async createUser(userDto: CreateUserDto): Promise<PublicUserDto> {
+    return await this.createUserCommand.execute(userDto);
   }
 
   async update(userId: UserEntity['id'], newUserDto: Partial<UserEntity>) {
