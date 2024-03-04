@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../auth.service';
-import { UserService } from '@/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { userMock } from '@/user/constant';
 import { verify } from 'argon2';
 import Mock = jest.Mock;
 import { JWT_KEYS, tokenPayloadMock } from '@/auth/constants';
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 jest.mock('argon2');
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let userService: UserService;
+  let userService: UserServiceAdapter;
   let jwtService: JwtService;
 
   beforeEach(async () => {
@@ -19,7 +19,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         {
-          provide: UserService,
+          provide: UserServiceAdapter,
           useValue: {
             findUserByEmail: jest.fn(),
             update: jest.fn(),
@@ -34,7 +34,7 @@ describe('AuthService', () => {
       ],
     }).compile();
     authService = module.get(AuthService);
-    userService = module.get(UserService);
+    userService = module.get(UserServiceAdapter);
     jwtService = module.get(JwtService);
   });
 

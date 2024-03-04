@@ -4,11 +4,11 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JWT_KEYS } from '@/auth/constants';
 import { TokenPayloadExtendedDto } from '../types';
 import { UserEntityPublic } from '@/user/types';
-import { UserService } from '@/user/user.service';
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserServiceAdapter) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,

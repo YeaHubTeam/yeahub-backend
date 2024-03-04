@@ -4,16 +4,16 @@ import { JWT_KEYS } from '@/auth/constants';
 import { Request } from 'express';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { verify as verifyHash } from 'argon2';
-import { UserService } from '@/user/user.service';
 import { TokenPayloadExtendedDto } from '@/auth/types';
 import { UserEntity } from '@/user/entities/user.entity';
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
   Strategy,
   'jwt-refresh',
 ) {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserServiceAdapter) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: JWT_KEYS.REFRESH_SECRET,

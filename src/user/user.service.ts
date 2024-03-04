@@ -7,9 +7,10 @@ import { FindUserByEmailQuery } from '@/user/queries/find-user-by-email.query';
 import { UpdateUserByIdQuery } from '@/user/queries/update-user-by-id.query';
 import { UserEntity } from '@/user/entities/user.entity';
 import { hashPassword } from '@/common/utils/hash-password';
+import { UserServiceInterface } from '@/user/interfaces/user-service.interface';
 
 @Injectable()
-export class UserService {
+export class UserService implements UserServiceInterface {
   constructor(
     private createUserCommand: CreateUserCommand,
     private getUsersQuery: GetUsersQuery,

@@ -7,10 +7,20 @@ import { USERS_QUERIES } from './queries';
 import { UserEntity } from './entities/user.entity';
 import { ProfileEntity } from 'src/index.entities';
 
+const userServiceProviderExport = {
+  provide: 'UserService',
+  useExisting: UserService,
+};
+
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity, ProfileEntity])],
-  providers: [UserService, ...USERS_COMMANDS, ...USERS_QUERIES],
+  providers: [
+    UserService,
+    userServiceProviderExport,
+    ...USERS_COMMANDS,
+    ...USERS_QUERIES,
+  ],
   controllers: [UserController],
-  exports: [TypeOrmModule, UserService],
+  exports: [TypeOrmModule, userServiceProviderExport],
 })
 export class UserModule {}

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '@/user/user.service';
 import { UserEntity } from '@/user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { hash, verify as verifyHash } from 'argon2';
@@ -7,11 +6,12 @@ import { TokenPayloadDto, UserLoginDto, AuthTokenDto } from '@/auth/types';
 import { UserEntityPublic } from '@/user/types';
 import { Nullable } from '@/common/utility-types';
 import { JWT_KEYS } from '@/auth/constants';
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UserService,
+    private usersService: UserServiceAdapter,
     private jwtService: JwtService,
   ) {}
 

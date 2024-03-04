@@ -1,19 +1,19 @@
 import { JwtStrategy } from '../jwt.strategy';
-import { UserService } from '@/user/user.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { userMock } from '@/user/constant';
 import { tokenPayloadMock } from '@/auth/constants';
 import { TokenPayloadDto } from '@/auth/types';
 import { UserEntity } from '@/user/entities/user.entity';
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 describe('JwtStrategy', () => {
   let jwtStrategy: JwtStrategy;
-  let userService: UserService;
+  let userService: UserServiceAdapter;
 
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    userService = new UserService();
+    userService = new UserServiceAdapter();
     jwtStrategy = new JwtStrategy(userService);
   });
 

@@ -1,4 +1,3 @@
-import { UserService } from '@/user/user.service';
 import { ForbiddenException } from '@nestjs/common';
 import { JwtRefreshStrategy } from '@/auth/strategies/jwt-refresh.strategy';
 import { userMock } from '@/user/constant';
@@ -8,17 +7,18 @@ import { tokenPayloadMock } from '@/auth/constants';
 import { Request } from 'express';
 import { verify } from 'argon2';
 import Mock = jest.Mock;
+import { UserServiceAdapter } from '@/auth/adapters/user-service.adapter';
 
 jest.mock('argon2');
 
 describe('JwtRefreshStrategy', () => {
   let jwtRefreshStrategy: JwtRefreshStrategy;
-  let userService: UserService;
+  let userService: UserServiceAdapter;
 
   beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    userService = new UserService(); // Mock or create an instance of your UserService
+    userService = new UserServiceAdapter();
     jwtRefreshStrategy = new JwtRefreshStrategy(userService);
     jest.resetModules();
   });
