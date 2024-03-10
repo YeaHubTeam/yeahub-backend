@@ -1,10 +1,18 @@
-import { Body, Controller, Get, Post, NotFoundException, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, PublicUserDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import { GetUsersApiDocs } from './decorators/get-users-api-docs.decorator';
 import { CreateUserApiDocs } from './decorators/create-user-api-docs.decorator';
-import { UserEntity } from './user.entity';
+import { Public } from '@/auth/decorators/public.decorator';
+import { UserEntity } from '@/user/entities/user.entity';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,6 +34,7 @@ export class UserController {
     return user;
   }
 
+  @Public()
   @Post()
   @CreateUserApiDocs()
   async createUser(@Body() userDto: CreateUserDto): Promise<PublicUserDto> {

@@ -1,7 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { join } from 'path';
 import * as process from 'process';
-import { getPGUrl } from '@/common/utils';
+import { getPGUrl } from '../common/utils';
 
 const env = process.env.NODE_ENV || 'development';
 const options = (): DataSourceOptions => {
