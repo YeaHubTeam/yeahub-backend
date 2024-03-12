@@ -1,0 +1,28 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+<changeSet id="v0.0.1 createRolePermissionTable" author="YeaHub Team">
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists tableName="role_permission"/>
+        </not>
+    </preConditions>
+    <createTable tableName="role_permission">
+        <column name="role_id" type="int4"/>
+        <column name="permission_id" type="varchar(50)"/>
+    </createTable>
+</changeSet>
+
+<changeSet id="add_primary_key_to_role-permission_table" author="YeaHub Team">
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists tableName="role_permission"/>
+        </not>
+    </preConditions>
+    <addPrimaryKey columnNames="role_id, permission_id" constraintName="role_pk0" tableName="role_permission"/>
+</changeSet>
+
+</databaseChangeLog>

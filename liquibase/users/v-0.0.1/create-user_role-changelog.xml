@@ -1,0 +1,28 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<changeSet id="v0.0.1 createUserRoleTable" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_role"/>
+            </not>
+        </preConditions>
+    <createTable tableName="user_role">
+        <column name="user_id" type="uuid"/>
+        <column name="role_id" type="int4"/>
+        <column name="setted_by" type="uuid"/>
+    </createTable>
+</changeSet>
+
+<changeSet id="v0.0.1 addUserRoleConstraints" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_role"/>
+            </not>
+        </preConditions>
+    <addPrimaryKey columnNames="user_id, role_id" constraintName="user_role_pk0" tableName="user_role"/>
+</changeSet>
+
+</databaseChangeLog>

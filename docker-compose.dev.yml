@@ -27,6 +27,17 @@ services:
       - 5050:80
     depends_on:
       - db
+
+  liquibase:
+    container_name: liquibase
+    image: liquibase/liquibase
+    volumes:
+      - ./liquibase:/liquibase/changelog
+      - ./lib:/lib
+    command: ['--classpath=lib/postgresql-42.7.2.jar', 'update']
+    depends_on:
+      - db
+
   app:
     container_name: app_dev
     build:
@@ -46,6 +57,7 @@ services:
       DEPLOY_TYPE: docker
     depends_on:
       - db
+      - liquibase
 
 volumes:
   db_data_dev:

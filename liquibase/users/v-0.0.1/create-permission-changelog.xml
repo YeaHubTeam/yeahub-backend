@@ -1,0 +1,35 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+<changeSet id="v0.0.1 createPermissionTable" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="permission"/>
+            </not>
+        </preConditions>
+    <createTable tableName="permission">
+        <column name="id" type="int4">
+            <constraints primaryKey="true" primaryKeyName="permission_pk0"/>
+        </column>
+        <column name="name" type="varchar(255)"/>
+    </createTable>
+</changeSet>
+
+<changeSet id="v0.0.1 addPermissionConstraints" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="permission"/>
+            </not>
+        </preConditions>
+    <addPrimaryKey columnNames="id" constraintName="permission_pk0" tableName="permission"/>
+</changeSet>
+
+<changeSet id="v0.0.1 loadPermissionsData" author="YeaHub Team">
+    <loadData tableName="permission" file="liquibase/data/permission-data.csv"/>
+</changeSet>
+
+
+   </databaseChangeLog>

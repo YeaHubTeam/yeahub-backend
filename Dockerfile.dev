@@ -1,17 +1,29 @@
-#syntax=docker/dockerfile:1
-
 ARG PORT
 
 FROM node:20-bullseye
 
+# Установка рабочей директории
 WORKDIR /usr/src/app
 
+# Копирование файла package.json и установка зависимостей
 COPY package*.json ./
-
 RUN npm install
 
-COPY . .
+# Установка Java Runtime Environment
+RUN apt-get update && \
+    apt-get install -y default-jre
 
-EXPOSE $PORT
+# Установка Liquibase
+RUN wget -O liquibase.tar.gz https://github.com/liquibase/liquibase/releases/download/v4.4.3/liquibase-4.4.3.tar.gz \
+    && tar -xzf liquibase.tar.gz \
+    && mv liquibase /usr/local/bin/ \
+    && chmod +x /usr/local/bin/liquibase \
+    && rm liquibase.tar.gz
 
-CMD ["npm", "run", "start:dev"]
+ENV CLASSPATH=lib/postgresql-42.7.2.jar    
+
+# Копирование файлов миграции (если они есть)
+COPY liquibase /liquibase
+
+# Команда для запуска миграций при запуске контейнера
+CMD ["sh", "-c", "liquibase --changeLogFile=/liquibase/changelog/master.xml update"]

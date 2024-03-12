@@ -1,0 +1,86 @@
+ <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<changeSet id="v0.0.1 createUsersTable" author="YeaHub Team">
+    <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+       <createTable tableName="users">
+        <column name="id" type="uuid">
+            <constraints primaryKey="true" primaryKeyName="users_pk1"/>
+        </column>
+        <column name="first_name" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="last_name" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="password_hash" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="phone" type="varchar(50)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="email" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="country" type="varchar(255)">
+            <constraints nullable="true"/>
+        </column>
+        <column name="city" type="varchar(255)">
+            <constraints nullable="true"/>
+        </column>
+        <column name="birthday" type="date">
+            <constraints nullable="true"/>
+        </column>
+        <column name="address" type="varchar(255)">
+            <constraints nullable="true"/>
+        </column>
+        <column name="avatarurl" type="varchar(255)" defaultValue="DefaultAvatarUrl">
+            <constraints nullable="false"/>
+        </column>
+        <column name="refresh_token" type="varchar(255)">
+            <constraints nullable="true"/>
+        </column>
+        <column name="profileId" type="uuid">
+            <constraints nullable="false"/>
+        </column>
+        <column name="created_at" type="date" defaultValueComputed="CURRENT_DATE">
+            <constraints nullable="false"/>
+        </column>
+        <column name="updated_at" type="date"/>
+    </createTable>
+</changeSet>
+
+<changeSet id="v0.0.1 addConstraintsAndIndexes" author="YeaHub Team">
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists tableName="users"/>
+        </not>
+    </preConditions>
+    <addUniqueConstraint tableName="users" columnNames="email" constraintName="users_uk1"/>
+    <addUniqueConstraint tableName="users" columnNames="phone" constraintName="users_uk2"/>
+    <createIndex tableName="users" indexName="users_ind0" unique="true">
+        <column name="phone"/>
+    </createIndex>
+    <createIndex tableName="users" indexName="users_ind1" unique="true">
+        <column name="email"/>
+    </createIndex>
+     <addForeignKeyConstraint
+        baseTableName="users"
+        baseColumnNames="profileId"
+        referencedTableName="profile_entity"
+        referencedColumnNames="id"
+        constraintName="users_profile_fk1"
+        onDelete="CASCADE"
+    />
+    <createIndex tableName="users" indexName="users_ind2">
+        <column name="created_at"/>
+    </createIndex>
+</changeSet>
+
+</databaseChangeLog>

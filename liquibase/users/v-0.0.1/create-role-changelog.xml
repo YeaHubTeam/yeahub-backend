@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<changeSet id="v0.0.1 createRoleTable" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+    <createTable tableName="role">
+        <column name="id" type="int4">
+            <constraints primaryKey="true" primaryKeyName="role_pk0" nullable="false"/>
+        </column>
+        <column name="name" type="varchar(50)"/>
+    </createTable>
+</changeSet>
+
+<changeSet id="v0.0.1 addRoleConstraints" author="YeaHub Team">
+<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role_role"/>
+            </not>
+        </preConditions>
+    <addPrimaryKey columnNames="id" constraintName="role_pk0" tableName="role_role"/>
+</changeSet>
+
+<changeSet id="v0.0.1 loadRoleData" author="YeaHub Team">
+    <loadData tableName="role_role" file="liquibase/data/role-data.csv"/>
+</changeSet>
+
+</databaseChangeLog>
