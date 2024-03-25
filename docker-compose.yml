@@ -11,6 +11,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - db_data:/var/lib/postgresql/data
+    env_file:
+      - .env.production
     ports:
       - 5432:5432
 
@@ -25,6 +27,8 @@ services:
       - pgadmin_data:/var/lib/pgadmin
     ports:
       - 5050:80
+    env_file:
+      - .env.production
     depends_on:
       - db
   app:
@@ -41,6 +45,8 @@ services:
       SERVICE_PORT: ${SERVICE_PORT}
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
       NODE_ENV: production
+    env_file:
+      - .env.production
     depends_on:
       - db
 
