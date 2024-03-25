@@ -64,7 +64,7 @@ $ npm run test:cov
 
 ```bash
 # run application
-$ docker compose up
+$ docker-compose --env-file .env.production -f docker-compose.yml up
 
 # stop application
 $ docker compose down
@@ -74,11 +74,23 @@ $ docker compose down
 
 ```bash
 # run application
-$ docker compose -f docker-compose.dev.yml up
+$ docker-compose --env-file .env.development -f docker-compose.dev.yml up
 
 # stop application
 $ docker compose -f docker-compose.dev.yml down
 ```
+
+## DB Properties (PGAdmin)
+
+Имя: {POSTGRES_DB}
+Имя/адрес сервера: {container_name}
+Порт: {ports}
+Имя пользователя: {POSTGRES_USER}
+Пароль: {POSTGRES_PASSWORD}
+
+## Swagger Docs
+
+http://localhost:{port}/api
 
 ## Support
 

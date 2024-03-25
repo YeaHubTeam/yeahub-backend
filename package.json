@@ -12,6 +12,8 @@
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "docker:dev": "docker-compose --env-file .env.development -f docker-compose.dev.yml up",
+    "docker:prod": "docker-compose --env-file .env.production -f docker-compose.yml up",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "prepare": "husky install",
