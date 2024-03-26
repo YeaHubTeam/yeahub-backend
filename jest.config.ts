@@ -1,23 +1,15 @@
 export default {
-    preset: "ts-jest",
-    moduleFileExtensions: [
-    "js",
-    "json",
-    "ts"
-  ],
-    rootDir: ".",
-    testRegex: ".*\\.spec\\.ts$",
-    transform: {
-    "^.+\\.(t|j)s$": "ts-jest"
+  preset: 'ts-jest',
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  rootDir: '.',
+  testRegex: '.*\\.spec\\.ts$',
+  transform: {
+    '^.+\\.(t|j)s$': 'ts-jest',
   },
-    collectCoverageFrom: [
-    "**/*.(t|j)s"
-  ],
-    coverageDirectory: "./coverage",
-    testEnvironment: "node",
-    roots: [
-    "<rootDir>/src/"
-  ],
+  collectCoverageFrom: ['**/*.(t|j)s'],
+  coverageDirectory: './coverage',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src/'],
   globals: {
     'ts-jest': {
       tsconfig: './tsconfig.json',
@@ -25,6 +17,7 @@ export default {
     },
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  }
-}
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  setupFiles: ['<rootDir>/jest-env-setup.js'],
+};
